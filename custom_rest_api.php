@@ -5,8 +5,8 @@ Description: DO NOT DISABLE/REMOVE THIS... this plugin is essential for android 
 Version:     1.0
 Author:      Ahmad Givekesh
 Author URI:  baboon.ir
-License:     GPL v3.0
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License:     Apache v2.0
+License URI: http://www.apache.org/licenses/LICENSE-2.0
 */
 
 add_action( 'rest_api_init', function () {
