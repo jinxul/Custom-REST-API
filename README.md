@@ -1,7 +1,7 @@
 WP REST API - Author Info Plugin
 =================
 
-This plugin is faster alternative to WP REST API(since its only gets a lot less data than WP REST).
+This plugin is a faster alternative to WP REST API(since it gets a lot less data than WP REST).
 
 
 
