@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Rest API
 Description: DO NOT DISABLE/REMOVE THIS... this plugin is essential for android app!
-Version:     1.0
+Version:     1.1
 Author:      Ahmad Givekesh
 Author URI:  baboon.ir
 License:     Apache v2.0
@@ -17,6 +17,43 @@ add_action( 'rest_api_init', function () {
 	) );
 } );
 
+add_action( 'rest_api_init', function () {
+
+	register_rest_route( 'givekesh', '/posts/(?P<id>\d+)', array(
+		'methods' => 'GET',
+		'callback' => 'get_post_by_id',
+		'args' => array(
+			'id' => array(
+				'validate_callback' => function($param, $request, $key) {
+					return is_numeric( $param );
+				}
+			),
+		),
+	) );
+} );
+
+function get_post_by_id($data){
+	
+	$post_by_id = get_post($data['id']);
+
+	if(empty ($post_by_id) )
+		return new WP_Error( 'OPS...', 'Post Not Found.', array( 'status' => 404 ) );
+	
+		$author_id = $post_by_id->post_author;
+		$feed['id'] = $post_by_id->ID;
+		$feed['date'] = $post_by_id->post_date;		
+		$feed['title'] = array('rendered' => $post_by_id->post_title);
+		$feed['content'] = array('rendered' => $post_by_id->post_content);
+		$feed['excerpt'] = array('rendered' => my_trim_excerpt( $post_by_id->post_content));
+		$feed['author_info'] = array(
+			"id" => $author_id, 
+			"display_name" => get_the_author_meta('display_name', $author_id),
+			"avatar_url"=> get_avatar_url($author_id));
+		$feed['image'] = array(
+			'source_url' => get_site_url().wp_get_attachment_url(get_post_thumbnail_id($post_by_id->ID)));
+
+	return $feed;
+}
 
 function get_feeds() {
 
