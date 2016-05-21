@@ -10,7 +10,6 @@ License URI: http://www.apache.org/licenses/LICENSE-2.0
 */
 
 add_action( 'rest_api_init', function () {
-	
 	register_rest_route( 'givekesh', '/posts', array(
 		'methods' => 'GET',
 		'callback' => 'get_feeds',
@@ -18,7 +17,6 @@ add_action( 'rest_api_init', function () {
 } );
 
 add_action( 'rest_api_init', function () {
-
 	register_rest_route( 'givekesh', '/posts/(?P<id>\d+)', array(
 		'methods' => 'GET',
 		'callback' => 'get_post_by_id',
@@ -33,7 +31,6 @@ add_action( 'rest_api_init', function () {
 } );
 
 function get_post_by_id($data){
-	
 	$post_by_id = get_post($data['id']);
 
 	if(empty ($post_by_id) )
@@ -68,9 +65,7 @@ function get_feeds() {
 	if(empty ($posts) )
 		return new WP_Error( 'OPS...', 'Something Went Wrong In Our End! Please Try Later.', array( 'status' => 404 ) );
 	
-
 	$i = 0;
-
 	foreach($posts as $post){
 		$author_id = $post->post_author;
 		$feeds[$i]['id'] = $post->ID;
