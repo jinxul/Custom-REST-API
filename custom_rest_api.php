@@ -46,7 +46,7 @@ function get_feeds() {
 			"display_name" => get_the_author_meta('display_name', $author_id),
 			"avatar_url"=> get_avatar_url($author_id));
 		$feeds[$i++]['image'] = array(
-			'source_url' => $feat_image = get_site_url().wp_get_attachment_url(get_post_thumbnail_id($post->ID)));					
+			'source_url' => get_site_url().wp_get_attachment_url(get_post_thumbnail_id($post->ID)));					
 	}
 
 	return $feeds;
