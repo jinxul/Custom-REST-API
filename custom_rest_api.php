@@ -22,7 +22,7 @@ function get_feeds() {
 
 	$posts = get_posts( array(
 			'post_type' => 'post',
-			'posts_per_page' => 10,
+			'posts_per_page' => isset($_GET['per_page']) ? $_GET['per_page'] : 10,
 			's' => isset($_GET['search']) ? $_GET['search'] : '',
 			'offset' => isset($_GET['page']) ? ($_GET['page'] - 1) * 10: 0,
 			'category_name' => isset($_GET['category_name']) ? $_GET['category_name'] : '',
