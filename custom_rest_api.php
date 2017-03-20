@@ -68,7 +68,7 @@ function get_post_by_id($data){
 		$feed['id'] = $post_by_id->ID;
 		$feed['date'] = $post_by_id->post_date;		
 		$feed['title'] = array('rendered' => $post_by_id->post_title);
-		$feed['content'] = array('rendered' => $post_by_id->post_content);
+		$feed['content'] = array('rendered' => apply_filters('the_content', $post_by_id->post_content));
 		$feed['excerpt'] = array('rendered' => my_trim_excerpt( $post_by_id->post_content));
 		$feed['author_info'] = array(
 			"id" => $author_id, 
@@ -99,7 +99,7 @@ function get_feeds() {
 		$feeds[$i]['id'] = $post->ID;
 		$feeds[$i]['date'] = $post->post_date;		
 		$feeds[$i]['title'] = array('rendered' => $post->post_title);
-		$feeds[$i]['content'] = array('rendered' => $post->post_content);
+		$feeds[$i]['content'] = array('rendered' => apply_filters('the_content', $post->post_content));
 		$feeds[$i]['excerpt'] = array('rendered' => my_trim_excerpt( $post->post_content));
 		$feeds[$i]['author_info'] = array(
 			"id" => $author_id, 
