@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Rest API
 Description: DO NOT DISABLE/REMOVE THIS... this plugin is essential for android app!
-Version:     1.2
+Version:     1.3
 Author:      Ahmad Givekesh
 Author URI:  baboon.ir
 License:     Apache v2.0
@@ -55,6 +55,13 @@ add_action( 'rest_api_init', function () {
 				}
 			),
 		),
+	) );
+} );
+
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'givekesh', '/categories', array(
+		'methods' => 'GET',
+		'callback' => 'get_category_list',
 	) );
 } );
 
@@ -149,4 +156,22 @@ function get_comments_by_id($data){
 function get_post_by_url($data){
 	$url = array('id' => url_to_postid($data['url']));
 	return get_post_by_id($url);
+}
+
+function get_category_list(){
+	$categories = get_categories( array(
+		'orderby' => 'id',
+		'order'   => 'ASC',
+		'parent'  => 0
+	) );
+
+	$cat_array = array(array());
+	$i=0;
+
+	foreach( $categories as $category ) {
+		$cat_array[$i]['id'] = $category->cat_ID;
+		$cat_array[$i]['category_name'] = $category->name;
+		$cat_array[$i++]['post_count'] = $category->count;
+	}
+	return $cat_array;
 }
